@@ -5,5 +5,5 @@
 
 if (isServer) then 
 {
-	Airstrikes_srv_start 	= compile preprocessFileLineNumbers "addons\airstrikes\airstrikes_srv_start.sqf"; 
+	airstrikes_srv_start 	= compile preprocessFileLineNumbers "addons\airstrikes\airstrikes_srv_start.sqf"; 
 };

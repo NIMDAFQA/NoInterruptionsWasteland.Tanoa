@@ -271,7 +271,7 @@ class PlayersMenu
 			h = 0.04 * SZ_SCALE_ABS;
 		};
 
-		class DonationButton: w_RscButton
+		/*class DonationButton: w_RscButton
 		{
 			idc = -1;
 			text = "infiSTAR";
@@ -280,7 +280,7 @@ class PlayersMenu
 			y = 0.70  * safezoneH + safezoneY;
 			w = 0.05 * (4/3) * SZ_SCALE_ABS;
 			h = 0.04 * SZ_SCALE_ABS;
-		};
+		};*/
 	};
 };
 
