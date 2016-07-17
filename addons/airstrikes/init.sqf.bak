@@ -1,0 +1,68 @@
+buystrike = {
+	_item = _this select 0;
+	_count = _this select 1;
+	_cost = _this select 2;
+	_cashmoney = (player getVariable "bmoney");
+	if (_cashmoney < _cost) then
+	{
+		hint "You don't have enough money in your bank!";
+		playSound "FD_CP_Not_Clear_F";
+	}
+	else
+	{
+		player setVariable["bmoney",_cashmoney-_cost,false];
+		hint 'Click where you would like the airstrike.'; 
+		openMap true;
+		[_item, _count] onMapSingleClick {[_this select 0, _this select 1, _pos] spawn artystrike; onMapSingleClick{}; true;};
+	};
+};
+
+artystrike = {
+	_item1 = _this select 0;
+	_count1 = _this select 1;
+	_position = _this select 2;
+	for "_i" from 1 to _count1 do
+	{
+		shell = _item1 createvehicle [(_position select 0), (_position select 1), (_position select 2) + 200] ;shell setVectorDirandUp [[0,0,-1],[0.1,0.1,1]]; shell setvelocity[random 50 - 25, random 50 - 25, -100];
+		sleep 0.5;
+	};
+};
+
+AirstrikeMenu = 
+[
+	["Airstrike",true],
+			["Artillery", [2], "#USER:ArtilleryMenu", -5, [["expression", ""]], "1", "1"],
+			["Missile", [3], "#USER:MissileMenu", -5, [["expression", ""]], "1", "1"],
+			["Bomb", [4], "#USER:BombMenu", -5, [["expression", ""]], "1", "1"],
+			["Cancel Airstrike", [5], "", -3, [["expression", ""]], "1", "1"]
+];
+
+ArtilleryMenu = 
+[
+	["Artillery",true],
+			["[$25000]155mm HE Shells", [2], "", -5, [["expression", "['Sh_155mm_AMOS',10,25000] spawn buystrike"]], "1", "1"],
+			["[$5000]155mm White Smoke", [2], "", -5, [["expression", "['Smoke_120mm_AMOS_White',25,5000] spawn buystrike"]], "1", "1"],
+			["[$25000]Mine Cluster", [2], "", -5, [["expression", "['Mine_155mm_AMOS_range',10,25000] spawn buystrike"]], "1", "1"],
+			["[$25000]AT Mine Cluster", [2], "", -5, [["expression", "['AT_Mine_155mm_AMOS_range',10,25000] spawn buystrike"]], "1", "1"],
+			["[$40000]Cluster Shells", [2], "", -5, [["expression", "['Cluster_155mm_AMOS',10,40000] spawn buystrike"]], "1", "1"],
+			["Back", [], "", -4, [["expression", ""]], "1", "1"]
+];
+
+MissileMenu =
+[
+	["Missiles",true],
+			["[$50000]230mm Titan Missile", [2], "", -5, [["expression", "['R_230mm_HE',1,50000] spawn buystrike"]], "1", "1"],
+			["[$10000]Skalpel ATGM", [2], "", -5, [["expression", "['M_Scalpel_AT',3,10000] spawn buystrike"]], "1", "1"],
+			["Back", [], "", -4, [["expression", ""]], "1", "1"]
+];
+
+BombMenu = 
+[
+	["Bombs",true],
+			["[$50000]GBU-12", [2], "", -5, [["expression", "['Bo_GBU12_LGB',1,50000] spawn buystrike"]], "1", "1"],
+			["[$50000]Mk82", [2], "", -5, [["expression", "['Bo_Mk82',1,50000] spawn buystrike"]], "1", "1"],
+			["[$50000]LOM-250G", [2], "", -5, [["expression", "['Bomb_03_F',1,50000] spawn buystrike"]], "1", "1"],
+			["Back", [], "", -4, [["expression", ""]], "1", "1"]
+];
+
+showCommandingMenu "#USER:AirstrikeMenu";
